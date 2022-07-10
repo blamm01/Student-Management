@@ -48,7 +48,8 @@
         .then(async (res) => {
           res = await res.json();
           let data = res.data;
-          data = data.sort((a, b) => b.total - a.total)
+          data = data.sort((a, b) => b.total - a.total);
+          if(data.length >= 100) alert("Lưu ý: Thông tin quá nhiều. Điều này có thể mất từ 5 giây tới hơn 30 giây để tải thành công tất cả dữ liệu")
           data.map((v) => {
             if (!v.id || !v.name) return;
             tableBody.innerHTML += `
