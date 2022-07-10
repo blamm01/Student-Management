@@ -1,0 +1,100 @@
+<div class="sidebar">
+  <div class="sidebar__links">
+    <div class="sidebar__link">
+      <a class="sidebar__link__a" href="/">Trang chủ</a>
+    </div>
+
+    <div class="sidebar__link">
+      <a class="sidebar__link__a" href="/view/">Xem danh sách</a>
+    </div>
+
+    <div class="sidebar__link">
+      <a class="sidebar__link__a" href="/add/">Thêm sinh viên</a>
+    </div>
+
+    <div class="sidebar__link">
+      <a class="sidebar__link__a" href="/edit/">Sửa sinh viên</a>
+    </div>
+
+    <div class="sidebar__link">
+      <a class="sidebar__link__a" href="/remove/">Xóa sinh viên</a>
+    </div>
+  </div>
+</div>
+
+<div class="sidebar--fake"></div>
+
+<style>
+  :root {
+    --sidebar-width: 250px;
+    --sidebar-height: 100%;
+  }
+
+  .sidebar--fake {
+    display: block;
+    position: relative;
+    width: var(--sidebar-width);
+    height: var(--sidebar-height);
+  }
+
+  .sidebar {
+    height: 100%;
+    position: fixed;
+    width: var(--sidebar-width);
+    background-color: rgb(184, 255, 255);
+    padding: 10px;
+  }
+
+  .sidebar__link {
+    margin-bottom: 10px;
+    margin-top: 5px;
+    padding-inline-start: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .sidebar__link--selected {
+    border-radius: 10px;
+    background-color: rgb(187, 187, 187);
+  }
+
+  .sidebar__link--selected .sidebar__link__a {
+    color: black !important;
+  }
+
+  .sidebar__link__a {
+    font-size: 20px;
+    color: black;
+    font-weight: bold;
+  }
+
+  .sidebar__link__a:hover {
+    color: green;
+  }
+</style>
+
+<script type="text/javascript">
+  const path = window.location.href
+
+  const sidebarDivLinks = document.querySelectorAll(".sidebar__link");
+
+  // Remove "selected" class
+  sidebarDivLinks.forEach((sidebarDivLink) => {
+    if (sidebarDivLink.classList.contains("sidebar__link--selected")) {
+      sidebarDivLink.classList.remove("sidebar__link--selected");
+    }
+  });
+
+  sidebarDivLinks.forEach((sidebarDivLink) => {
+    const sidebar_a_link = sidebarDivLink.children.item(0);
+    if (!sidebar_a_link.classList.contains("sidebar__link__a")) {
+      alert("Đã có lỗi xảy ra! Vui lòng nhấn OK để tải lại trang");
+      window.location.reload();
+      return;
+    }
+
+    if (path !== sidebar_a_link.href) return;
+
+    sidebarDivLink.classList.add("sidebar__link--selected");
+  });
+</script>

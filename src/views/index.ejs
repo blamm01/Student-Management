@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QLSV - <%= page.title %></title>
+    <link rel="stylesheet" href="/css/index.css" />
+  </head>
+  <body>
+    <div id="main">
+      <%- include("./partials/sidebar.ejs") %>
+
+      <div class="interaction">
+        <div class="main__about">
+          <p class="main__about__title">Trang Web Quản Lý Sinh Viên</p>
+          <p class="main__about__desc">
+            Đây là một trang web đơn giản để quản lý sinh viên/học sinh.<br>
+            Bạn có thể thêm/sửa/xóa học sinh, xem danh sách học sinh dưới dạng bảng và một vài tính năng khác<br>
+            Chúc bạn có một trải nghiệm tốt nhất!<br>
+
+            <span class="main__about__desc__fact">Fact: File "students.json" là file lưu dữ liệu học sinh</span>
+          </p>
+        </div>
+      </div>
+      
+    </div>
+  </body>
+</html>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  #main {
+    display: flex;
+  }
+
+  .interaction {
+    width: calc(100% - var(--sidebar-width));
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .main__about {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .main__about__title {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+  }
+
+  .main__about__desc {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .main__about__desc__fact {
+    color: gray;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 10px;
+  }
+</style>

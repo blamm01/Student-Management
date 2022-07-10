@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QLSV - <%= page.title %></title>
+    <link rel="stylesheet" href="/css/index.css" />
+  </head>
+  <body>
+    <div id="main">
+      <%- include("./partials/sidebar.ejs") %>
+
+      <div class="interaction">
+        <table class="main__list">
+          <thead class="main__table__header">
+            <tr class="main__table__row">
+              <th class="main__table__data">Mã học sinh</th>
+              <th class="main__table__data">Họ và tên</th>
+              <th class="main__table__data">Toán</th>
+              <th class="main__table__data">Văn</th>
+              <th class="main__table__data">Ngoại ngữ</th>
+              <th class="main__table__data">Tổng</th>
+            </tr>
+          </thead>
+          <tbody class="main__table__body">
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  function render() {
+    const tableRender = () => {
+      let tableBody = document.querySelector("tbody.main__table__body");
+
+      // Fetch data
+      const domain = window.location.origin;
+      fetch(`${domain}/api/list`, {
+        method: "GET",
+        headers: {
+          ContentType: "application/json",
+        },
+      })
+        .then(async (res) => {
+          res = await res.json();
+          let data = res.data;
+          data = data.sort((a, b) => b.total - a.total)
+          data.map((v) => {
+            if (!v.id || !v.name) return;
+            tableBody.innerHTML += `
+              <tr class="main__table__row">
+                <td class="main__table__data">${v.id}</td>
+                <td class="main__table__data">${v.name}</td>
+                <td class="main__table__data">${v.math || "NA"}</td>
+                <td class="main__table__data">${v.literature || "NA"}</td>
+                <td class="main__table__data">${v.foreign || "NA"}</td>
+                <td class="main__table__data">${v.total || "NA"}</td>
+              </tr>
+            `;
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          alert(
+            "Đã có lỗi xảy ra khi hiển thị danh sách! Vui lòng kiểm tra bảng lệnh."
+          );
+        });
+    };
+
+    tableRender();
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    render();
+  });
+</script>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  #main {
+    display: flex;
+  }
+
+  .interaction {
+    width: calc(100% - var(--sidebar-width));
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .main__list {
+    border-collapse: collapse;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 3px;
+    padding: 0 10px;
+    position: relative;
+  }
+
+  td,
+  th {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    font-size: 15px;
+    line-height: 100%;
+    color: #333333;
+    padding: 15px 10px;
+    text-align: center;
+  }
+</style>
