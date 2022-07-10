@@ -15,6 +15,7 @@
         <table class="main__list">
           <thead class="main__table__header">
             <tr class="main__table__row">
+              <th class="main__table__data">STT</th>
               <th class="main__table__data">Mã học sinh</th>
               <th class="main__table__data">Họ và tên</th>
               <th class="main__table__data">Toán</th>
@@ -50,10 +51,11 @@
           let data = res.data;
           data = data.sort((a, b) => b.total - a.total);
           if(data.length >= 100) alert("Lưu ý: Thông tin quá nhiều. Điều này có thể mất từ 5 giây tới hơn 30 giây để tải thành công tất cả dữ liệu")
-          data.map((v) => {
+          data.map((v, index) => {
             if (!v.id || !v.name) return;
             tableBody.innerHTML += `
               <tr class="main__table__row">
+                <td class="main__table__data">${++index}</td>
                 <td class="main__table__data">${v.id}</td>
                 <td class="main__table__data">${v.name}</td>
                 <td class="main__table__data">${v.math || "NA"}</td>
