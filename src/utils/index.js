@@ -27,6 +27,9 @@ module.exports = {
 
                 return string;
             }).join("\n")
+        } else {
+            console.log("Invalid convert type!");
+            return null;
         }
         return datas;
     }
