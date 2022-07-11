@@ -12,14 +12,18 @@
       <%- include("./partials/sidebar.ejs") %>
 
       <div class="interaction">
-        <div class="main__about">
-          <p class="main__about__title">Trang Web Quản Lý Sinh Viên</p>
-          <p class="main__about__desc">
-            Trang này đang được phát triển
-          </p>
+        <div class="main__form">
+          <div class="main__form__head">
+            <p class="main__form__head__text">Xóa sinh viên</p>
+          </div>
+
+          <div class="main__form__field">
+            <label for="main__field__id" class="main__field__label">Mã học sinh: </label>
+            <input id="main__field__id" type="text" class="main__input__field" placeholder="ID">
+          </div>
+
+          <button type="button" class="main__form__submit">Xóa</button>
         </div>
-      </div>
-      
     </div>
   </body>
 </html>
@@ -47,31 +51,86 @@
     flex-direction: column;
   }
 
-  .main__about {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    justify-content: center;
+  .main__form {
+    border: 1px solid rgb(117, 117, 117);
+    border-radius: 10px;
+    padding: 10px;
   }
 
-  .main__about__title {
-    text-align: center;
-    font-size: 30px;
+  .main__form__field {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 20px 0;
+  }
+
+  .main__form__head {
+    display: flex;
+    justify-content: center;
     font-weight: bold;
+    font-size: 30px
   }
 
-  .main__about__desc {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-top: 10px;
+  .main__input__field {
+    margin: 0 10px;
+    padding: 5px;
   }
 
-  .main__about__desc__fact {
-    color: gray;
-    font-size: 12px;
-    text-align: center;
-    margin-top: 10px;
+  .main__form__submit {
+    padding: 10px;
+    padding-inline: 15px;
+    cursor: pointer;
+    background-color: red;
+    border-radius: 10px;
+    border: none;
+    font-weight: bold;
+    transition:all ease-in-out 0.15s
+  }
+
+  .main__form__submit:hover {
+    background-color: blue;
   }
 </style>
+
+<script>
+  function submitted() {
+    const submitBtn = document.querySelector(".main__form__submit");
+
+    const inputFieldID = document.querySelector("#main__field__id");
+
+    submitBtn.addEventListener("click", async() => {
+      if(!inputFieldID) return alert("Lỗi khi render trang! Vui lòng tải lại trang.")
+      const id = inputFieldID.value;
+      console.log(id)
+      if(!id) return alert("Vui lòng điền mã học sinh trước khi nhấn nút.");
+
+      const domain = window.location.origin;
+      fetch(`${domain}/api/remove`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          "id": `${id}`
+        })
+      }).then(async(res) => {
+        let data;
+        try {
+          data = await res.json()
+        } catch(err) {
+          data = null;
+        }
+        if(!`${res.status}`.startsWith("2") || data?.error) return alert(`Có lỗi xảy ra khi xóa học sinh: ${data?.error || res.statusText}`)
+        alert("Xóa thành công học sinh! Vui lòng nhấn OK để tải lại trang")
+      })
+      .catch((err) => {
+        console.log(err)
+        alert(
+            "Đã có lỗi xảy ra khi hiển thị danh sách! Vui lòng kiểm tra bảng lệnh."
+          );
+      })
+    })
+  }
+
+  submitted();
+</script>
