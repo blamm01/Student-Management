@@ -101,7 +101,6 @@
     submitBtn.addEventListener("click", async() => {
       if(!inputFieldID) return alert("Lỗi khi render trang! Vui lòng tải lại trang.")
       const id = inputFieldID.value;
-      console.log(id)
       if(!id) return alert("Vui lòng điền mã học sinh trước khi nhấn nút.");
 
       const domain = window.location.origin;
@@ -121,7 +120,7 @@
           data = null;
         }
         if(!`${res.status}`.startsWith("2") || data?.error) return alert(`Có lỗi xảy ra khi xóa học sinh: ${data?.error || res.statusText}`)
-        alert("Xóa thành công học sinh! Vui lòng nhấn OK để tải lại trang")
+        alert("Xóa thành công học sinh!")
       })
       .catch((err) => {
         console.log(err)
