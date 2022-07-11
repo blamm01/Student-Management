@@ -11,6 +11,4 @@ ID;NAME;MATH;LITERATURE;FOREIGN;TOTAL
 
 VD: 001;test;1;2;3;9
 
-Lưu ý: File "students.txt" hiện đang lưu thông tin của 1000+ thí sinh 2007 thi lớp 9 vào 10. Load và in ra màn hình sẽ mất tầm 30 giây :)
-
 _Fun fact: Cái project này phụ thuộc vào backend tới 90% và 10% còn lại là Frontend_
